@@ -109,12 +109,12 @@ class Date
   # any of these keys: <tt>:years</tt>, <tt>:months</tt>, <tt>:weeks</tt>, <tt>:days</tt>.
   def advance(options)
     options = options.dup
-    d = self
-    d = d >> options.delete(:years) * 12 if options[:years]
-    d = d >> options.delete(:months)     if options[:months]
-    d = d +  options.delete(:weeks) * 7  if options[:weeks]
-    d = d +  options.delete(:days)       if options[:days]
-    d
+    output_date = self
+    output_date = output_date >> options.delete(:years) * 12 if options[:years]
+    output_date = output_date >> options.delete(:months)     if options[:months]
+    output_date = output_date +  options.delete(:weeks) * 7  if options[:weeks]
+    output_date = output_date +  options.delete(:days)       if options[:days]
+    output_date
   end
 
   # Returns a new Date where one or more of the elements have been changed according to the +options+ parameter.
@@ -129,7 +129,7 @@ class Date
       options.fetch(:day, day)
     )
   end
-  
+
   # Allow Date to be compared with Time by converting to DateTime and relying on the <=> from there.
   def compare_with_coercion(other)
     if other.is_a?(Time)
